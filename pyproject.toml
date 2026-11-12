@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "abhay-satellite-tracking"
+version = "1.0.0"
+description = "Satellite orbit tracking, simulated health dashboard and PDF reports"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "skyfield>=1.49,<2",
+    "numpy>=1.26",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dashboard = [
+    "streamlit>=1.35",
+    "plotly>=5.20",
+    "pandas>=2.2",
+    "scikit-learn>=1.4",
+]
+test = ["pytest>=8"]
+all = [
+    "streamlit>=1.35",
+    "plotly>=5.20",
+    "pandas>=2.2",
+    "scikit-learn>=1.4",
+    "pytest>=8",
+]
+
+[project.scripts]
+satellite-track = "satellite_tracking.cli:main"
+satellite-dashboard = "satellite_tracking.launcher:main"
+satellite-report = "satellite_tracking.satellite_report:main"
+
+[tool.setuptools.packages.find]
+include = ["satellite_tracking*"]
+
+[tool.setuptools.package-data]
+satellite_tracking = ["sample_tles.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
